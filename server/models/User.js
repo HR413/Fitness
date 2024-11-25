@@ -1,41 +1,28 @@
 import mongoose from "mongoose"
 
 const UserSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-      },
-    category :{
+    name :{
         type : String,
         required : true,
     },
-    workoutName:{
+    email:{
         type : String,
         required : true,
-        
+        unique:true,
     },
-    sets :{
+    weight:{
         type : Number,
         default : null,
     },
-    reps :{
+    height:{
+        type : Number,
+        default : null,
+    },
+    
+    age:{
         type : Number,
         required : true,
     },
-    weights :{
-        type : Number,
-        required : true,
-    },
-    duration :{
-        type : Number,
-        required : true,
-    },
-    Date :{
-        type : Date,
-        default : Date.now ,
-    },
-   
 } 
 
 

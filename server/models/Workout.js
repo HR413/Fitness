@@ -1,23 +1,41 @@
 import mongoose from "mongoose"
 
 const WorkoutSchema = new mongoose.Schema({
-    name :{
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    category :{
         type : String,
         required : true,
     },
-    email:{
+    workoutName:{
         type : String,
         required : true,
-        unique:true,
+        
     },
-    image:{
-        type : String,
+    sets :{
+        type : Number,
         default : null,
     },
-    age:{
+    reps :{
         type : Number,
         required : true,
     },
+    weights :{
+        type : Number,
+        required : true,
+    },
+    duration :{
+        type : Number,
+        required : true,
+    },
+    Date :{
+        type : Date,
+        default : Date.now ,
+    },
+   
    
 } 
 
