@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import TextInput from "./TextInput";
 import Button from "./Button";
-import { UserSignUp } from "../api";
+import { UserSignIn } from "../api";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/reducers/userSlice";
 
@@ -24,50 +24,45 @@ const Span = styled.div`
   color: ${({ theme }) => theme.text_secondary + 90};
 `;
 
-const SignUp = () => {
+const SignIn = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const validateInputs = () => {
-    if (!name || !email || !password) {
+    if (!email || !password) {
       alert("Please fill in all fields");
       return false;
     }
     return true;
   };
 
-  const handelSignUp = async () => {
+  const handelSignIn = async () => {
     setLoading(true);
     setButtonDisabled(true);
     if (validateInputs()) {
-      try{
-       let res = await UserSignUp({ name, email, password })
-        dispatch(loginSuccess(res.data));
-        alert("Account Created Success");
-        setLoading(false);
-        setButtonDisabled(false);
-      }catch(err){
-        alert(err.response.data.message);
-        setLoading(false);
-        setButtonDisabled(false);
-      }
-        // .then((res) => {
-         
-        // })
-        // .catch((err) => {
-        
-        // });
+      await UserSignIn({ email, password })
+        .then((res) => {
+          dispatch(loginSuccess(res.data));
+          alert("Login Success");
+          setLoading(false);
+          setButtonDisabled(false);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+          setLoading(false);
+          setButtonDisabled(false);
+        });
     }
   };
+
   return (
     <Container>
       <div>
-        <Title>Create New Account 👋</Title>
-        <Span>Please enter details to create a new account</Span>
+        <Title>Welcome to Fittrack 👋</Title>
+        <Span>Please login with your details here</Span>
       </div>
       <div
         style={{
@@ -76,12 +71,6 @@ const SignUp = () => {
           flexDirection: "column",
         }}
       >
-        <TextInput
-          label="Full name"
-          placeholder="Enter your full name"
-          value={name}
-          handelChange={(e) => setName(e.target.value)}
-        />
         <TextInput
           label="Email Address"
           placeholder="Enter your email address"
@@ -96,8 +85,8 @@ const SignUp = () => {
           handelChange={(e) => setPassword(e.target.value)}
         />
         <Button
-          text="SignUp"
-          onClick={handelSignUp}
+          text="SignIn"
+          onClick={handelSignIn}
           isLoading={loading}
           isDisabled={buttonDisabled}
         />
@@ -106,4 +95,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
