@@ -25,7 +25,7 @@ app.use((err, req, res, next) => {
 
 app.get("/", async (req, res) => {
   res.status(200).json({
-    message: "Hello!",
+    message: "Hello developers from GFG",
   });
 });
 
@@ -43,7 +43,7 @@ const connectDB = () => {
 const startServer = async () => {
   try {
     connectDB();
-    app.listen(8080, () => console.log("Server started on port 8080"));
+    app.listen(3000, () => console.log("Server started on port 3000"));
   } catch (error) {
     console.log(error);
   }

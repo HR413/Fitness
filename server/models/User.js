@@ -1,44 +1,29 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-      },
-    category :{
-        type : String,
-        required : true,
+const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    workoutName:{
-        type : String,
-        required : true,
-        
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    sets :{
-        type : Number,
-        default : null,
+    img: {
+      type: String,
+      default: null,
     },
-    reps :{
-        type : Number,
-        required : true,
+    password: {
+      type: String,
+      required: true,
     },
-    weights :{
-        type : Number,
-        required : true,
+    age: {
+      type: Number,
     },
-    duration :{
-        type : Number,
-        required : true,
-    },
-    Date :{
-        type : Date,
-        default : Date.now ,
-    },
-   
-} 
-
-
+  },
+  { timestamps: true }
 );
 
-export default mongoose.model("User",UserSchema);
+export default mongoose.model("User", UserSchema);
